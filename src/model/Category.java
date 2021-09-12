@@ -16,7 +16,7 @@ public class Category
     private String name;
 
     /**
-     * Construye una nueva dificultad
+     * Construye una nueva categoria
      */
     public Category(String pName, String pDifficulty)
     {
