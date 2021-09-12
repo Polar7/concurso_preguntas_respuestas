@@ -79,6 +79,11 @@ public class Contest
         return rounds;
     }
 
+    public Player getPlayer()
+    {
+        return player;
+    }
+
     /**
      * Indica si el concurso se ha terminado
      * @return True si se ha terminado, false de lo contrario

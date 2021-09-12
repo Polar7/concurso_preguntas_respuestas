@@ -12,7 +12,7 @@ public class Player
     private String name;
 
     /**
-     * Cantidad de premios del jugador
+     * Cantidad de premios que lleva del jugador
      */
     private int rewards;
 
