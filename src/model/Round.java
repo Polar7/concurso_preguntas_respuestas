@@ -51,4 +51,8 @@ public class Round
     public int getPrize() {
         return prize;
     }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
 }

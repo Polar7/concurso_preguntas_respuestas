@@ -78,4 +78,9 @@ public class GUIContest extends JFrame
     {
         JOptionPane.showMessageDialog(null, pMensaje, "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public void showMessageWinnerOrLoser(String pMensaje)
+    {
+        JOptionPane.showMessageDialog(null, pMensaje, "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

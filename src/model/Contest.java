@@ -100,6 +100,85 @@ public class Contest
         this.gameOver = gameOver;
     }
 
+    public Round roundPerIndex(int pIndex)
+    {
+        return rounds[(pIndex-1)];
+    }
+
+    /**
+     * Devuelve una categoria dada su nombre por parametro
+     * <b> pre: </b> La lista de categorias ha sido inicializada.
+     * @param pName Nombre de la categoria a buscar
+     * @return La categoria encontrada, null si no existe ninguna con ese nombre
+     */
+    public Category searchCategoryByName(String pName)
+    {
+        Category categoryFind = null;
+
+        for (Category category : categories)
+        {
+            if (category.getName().equals(pName))
+            {
+                categoryFind = category;
+            }
+        }
+
+        return categoryFind;
+    }
+
+    /**
+     * Devuelve una lista de preguntas que tengan la dificultad dada por parametro
+     * <b> pre: </b> La lista de preguntas ha sido inicializada.
+     * @param pDifficulty - Dificultad de la ronda
+     * @return La preguntas disponibles en la ronda
+     */
+    public ArrayList<Question> questionsAvailablePerRound(String pDifficulty)
+    {
+        ArrayList<Question> questionsAvailable = new ArrayList<Question>();
+
+        for (Question question : questions) {
+            if (question.getCategory().getDifficulty().equals(pDifficulty))
+            {
+                questionsAvailable.add(question);
+            }
+        }
+        return questionsAvailable;
+    }
+
+    /**
+     * Crea al jugador que va a participar en el concurso
+     * @param pName - Nombre del jugador
+     */
+    public void createPlayer(String pName)
+    {
+        player = new Player(pName);
+    }
+
+    /**
+     * Devuelve un mensaje al jugador del concurso, si ganó felicitandolo, si perdió deseandole suerte
+     * @return Mensaje para el ganador
+     */
+    public String messageWinnerOrLoser()
+    {
+        if( player.isWinner() )
+        {
+            return "FELICIDADES " + player.getName() + ".\n" + "¡Has ganado el concurso!\n" + "¡Te llevas el premio mayor!";
+        }
+        else
+        {
+            return "Ohhh, lastima " + player.getName() + ".\n" + "Te esperamos en una próxima";
+        }
+    }
+
+    /**
+     * Devuelve un mensaje con los datos del credador del juego
+     * @return Mensaje sobre el creador del juego
+     */
+    public String about()
+    {
+        return "Juego creado por:\n" + "Jean Michael Lozano Cardoso";
+    }
+
     /**
      * Carga las preguntas de un archivo de propiedades
      */
@@ -160,62 +239,6 @@ public class Contest
         {
             System.out.println(e.getMessage());
         }
-    }
-
-
-
-    /**
-     * Devuelve una categoria dada su nombre por parametro
-     * <b> pre: </b> La lista de categorias ha sido inicializada.
-     * @param pName Nombre de la categoria a buscar
-     * @return La categoria encontrada, null si no existe ninguna con ese nombre
-     */
-    public Category searchCategoryByName(String pName)
-    {
-        Category categoryFind = null;
-
-        for (Category category : categories)
-        {
-            if (category.getName().equals(pName))
-            {
-                categoryFind = category;
-            }
-        }
-
-        return categoryFind;
-    }
-
-    /**
-     * Devuelve una lista de preguntas que tengan la dificultad dada por parametro
-     * <b> pre: </b> La lista de preguntas ha sido inicializada.
-     * @param pDifficulty - Dificultad de la ronda
-     * @return La preguntas disponibles en la ronda
-     */
-    public ArrayList<Question> questionsAvailablePerRound(String pDifficulty)
-    {
-        ArrayList<Question> questionsAvailable = new ArrayList<Question>();
-
-        for (Question question : questions) {
-            if (question.getCategory().getDifficulty().equals(pDifficulty))
-            {
-                questionsAvailable.add(question);
-            }
-        }
-        return questionsAvailable;
-    }
-
-    public void createPlayer(String pName)
-    {
-        player = new Player(pName);
-    }
-
-    /**
-     * Devuelve un mensaje con los datos del credador del juego
-     * @return Mensaje sobre el creador del juego
-     */
-    public String about()
-    {
-        return "Juego creado por:\n" + "Jean Michael Lozano Cardoso";
     }
 
 }

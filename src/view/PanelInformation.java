@@ -78,4 +78,20 @@ public class PanelInformation extends JPanel
     {
         txtPlayerName.setText(pName);
     }
+
+    public void increaseRound()
+    {
+        int number = Integer.parseInt(txtRound.getText()) + 1;
+        txtRound.setText(String.valueOf(number));
+    }
+
+    public void increaseRewards()
+    {
+        int number = Integer.parseInt(txtPlayerRewards.getText());
+    }
+
+    public void paintWinnerOrLoser(Color pColor)
+    {
+        txtPlayerName.setBackground(pColor);
+    }
 }

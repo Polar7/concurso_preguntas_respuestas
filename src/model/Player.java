@@ -59,4 +59,14 @@ public class Player
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
+
+    public void increaseRewards(int pIncrement)
+    {
+        rewards += pIncrement;
+    }
+
+    public void loseAll()
+    {
+        rewards = 0;
+    }
 }

@@ -1,14 +1,21 @@
 package view;
 
+import controller.MainController;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Panel que contiene las preguntas y sus posibles respuestas
  */
-public class PanelQuestion extends JPanel
+public class PanelQuestion extends JPanel implements ActionListener
 {
+
+    public static final String CHECH_ANSWER = "Check answer";
+
     /**
      * Campo de texto donde está ubicada la pregunta
      */
@@ -20,10 +27,13 @@ public class PanelQuestion extends JPanel
     private JRadioButton optionA, optionB, optionC, optionD;
 
     /**
-     * Botones para verificar repuesta o retirarse voluntariamente
+     * Boton para verificar repuesta
      */
-    private JButton btnCheck, btnBackingOut;
+    private JButton btnCheck;
 
+    /**
+     * Muestra la pregunta y sus posibles respuestas
+     */
     public PanelQuestion()
     {
         setBorder( new TitledBorder( "Pregunta" ) );
@@ -35,15 +45,18 @@ public class PanelQuestion extends JPanel
         txtSentence.setHorizontalAlignment(SwingConstants.CENTER);
 
         optionA = new JRadioButton();
-        optionA.setText("HOLAA");
+        optionA.setEnabled(false);
         optionB = new JRadioButton();
-        optionB.setText("HOLAA");
+        optionB.setEnabled(false);
         optionC = new JRadioButton();
-        optionC.setText("HOLAA");
+        optionC.setEnabled(false);
         optionD = new JRadioButton();
-        optionD.setText("HOLAA");
+        optionD.setEnabled(false);
 
         btnCheck = new JButton("Verificar respuesta");
+        btnCheck.setActionCommand( CHECH_ANSWER );
+        btnCheck.addActionListener( this );
+        btnCheck.setEnabled(false);
 
         ButtonGroup groupOptions = new ButtonGroup();
         groupOptions.add(optionA);
@@ -66,11 +79,22 @@ public class PanelQuestion extends JPanel
     }
 
 
-    public void upgradeSentente(String pSentence)
+    /**
+     * Actualiza la pregunta
+     * @param pSentence La nueva pregunta
+     */
+    public void upgradeSentence(String pSentence)
     {
         txtSentence.setText(pSentence);
     }
 
+    /**
+     * Actualiza las posibles repsuestas
+     * @param pOptionA
+     * @param pOptionB
+     * @param pOptionC
+     * @param pOptionD
+     */
     public void upgradeOptions(String pOptionA, String pOptionB, String pOptionC, String pOptionD)
     {
         optionA.setText(pOptionA);
@@ -79,6 +103,10 @@ public class PanelQuestion extends JPanel
         optionD.setText(pOptionD);
     }
 
+    /**
+     * Retorna la respuesta escogida por el jugador
+     * @return La respuesta escogida por el jugador
+     */
     public String checkAnswer()
     {
         String returnAnswer = "";
@@ -101,5 +129,30 @@ public class PanelQuestion extends JPanel
         return returnAnswer;
     }
 
+    /**
+     * Habilita o desactiva los botones de las opciones y el boton de verificar
+     * @param pEnable
+     */
+    public void enableOptions(boolean pEnable)
+    {
+        btnCheck.setEnabled(pEnable);
+        optionA.setEnabled(pEnable);
+        optionB.setEnabled(pEnable);
+        optionC.setEnabled(pEnable);
+        optionD.setEnabled(pEnable);
+    }
 
+    /**
+     * Manejo de los eventos de los botones.
+     * @param pEvent Acción que generó el evento. pEvento != null.
+     */
+    @Override
+    public void actionPerformed(ActionEvent pEvent)
+    {
+        String command = pEvent.getActionCommand( );
+        if( command.equals( CHECH_ANSWER ) )
+        {
+            MainController.getInstance().checkCorrectAnswer();
+        }
+    }
 }

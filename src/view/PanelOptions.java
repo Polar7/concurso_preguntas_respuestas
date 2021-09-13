@@ -53,8 +53,8 @@ public class PanelOptions extends JPanel implements ActionListener
         btnNewGame.addActionListener( this );
         add( btnNewGame );
 
-        btnBackingOut = new JButton("Retirarse");
-        btnBackingOut.setActionCommand( NEW_GAME );
+        btnBackingOut = new JButton("Retirarse voluntariamente");
+        btnBackingOut.setActionCommand( BACKING_OUT );
         btnBackingOut.addActionListener( this );
         btnBackingOut.setEnabled(false);
         add( btnBackingOut );
@@ -73,6 +73,11 @@ public class PanelOptions extends JPanel implements ActionListener
     }
 
 
+    public void enableBackingOut(boolean pEnable)
+    {
+        btnBackingOut.setEnabled(pEnable);
+    }
+
     /**
      * Manejo de los eventos de los botones.
      * @param pEvent Acción que generó el evento. pEvento != null.
@@ -82,7 +87,7 @@ public class PanelOptions extends JPanel implements ActionListener
     {
         switch (pEvent.getActionCommand()) {
             case NEW_GAME -> MainController.getInstance().newGame();
-            case SAVE_IN_DB -> MainController.getInstance().saveResultDB();
+            case SAVE_IN_DB -> MainController.getInstance().saveInDataBase();
             case BACKING_OUT -> MainController.getInstance().backingOut();
             case ABOUT -> MainController.getInstance().about();
         }
