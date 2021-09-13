@@ -2,6 +2,9 @@ package controller;
 
 import model.Contest;
 import model.Question;
+import model.dataBase.ConnectionDB;
+import model.dataBase.RecordDAO;
+import model.dataBase.RecordDTO;
 import view.DialogPlayer;
 import view.GUIContest;
 
@@ -66,8 +69,8 @@ public class MainController
 
     public void backingOut()
     {
-        finishGame();
         guiContest.getPanelInformation().paintWinnerOrLoser(Color.YELLOW);
+        finishGame();
     }
 
     /**
@@ -75,11 +78,11 @@ public class MainController
      */
     public void saveInDataBase()
     {
-        //String namePlayer = contest.getPlayer().getName();
-        //int rewardsPlayer = contest.getPlayer().getRewards();
-        //String winnerOrLoser = "";
-       /*
-       if( contest.getPlayer().isWinner() )
+        String namePlayer = contest.getPlayer().getName();
+        String rewardsPlayer = String.valueOf(contest.getPlayer().getRewards());
+        String winnerOrLoser = "";
+
+        if( contest.getPlayer().isWinner() )
         {
            winnerOrLoser = "Ganador";
         }
@@ -87,9 +90,25 @@ public class MainController
         {
             winnerOrLoser = "Perdedor";
         }
-        */
+
+        RecordDTO recordDto = new RecordDTO(namePlayer, rewardsPlayer, winnerOrLoser);
+        RecordDAO recordDao = new RecordDAO();
+
+        String sql = recordDao.insert(recordDto);
+
+        boolean sentinel = ConnectionDB.getInstance().runExecuteUpdate(sql);
+
+        if(sentinel)
+        {
+            System.out.println("Se ha guardado correctamente");
+        }
+        else
+        {
+            System.out.println("No se ha podido guardar correctamente");
+        }
 
     }
+
     /**
      * Muestra la informacion del creador de la aplicacion
      */
@@ -164,10 +183,9 @@ public class MainController
         else
         {
             //Termina el juego
-            finishGame();
             contest.getPlayer().loseAll();
             guiContest.getPanelInformation().paintWinnerOrLoser(Color.RED);
-
+            finishGame();
         }
     }
 

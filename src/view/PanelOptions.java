@@ -20,11 +20,6 @@ public class PanelOptions extends JPanel implements ActionListener
     private static final String NEW_GAME = "New game";
 
     /**
-     * Comando guardar en base de datos
-     */
-    private static final String SAVE_IN_DB = "Save in database";
-
-    /**
      * Comando retirarse del concurso
      */
     private static final String BACKING_OUT = "Backing out";
@@ -37,7 +32,7 @@ public class PanelOptions extends JPanel implements ActionListener
     /**
      * Botones de nuevo juego, retirse, guardar en BD y acerca de
      */
-    private JButton btnNewGame, btnBackingOut, btnSaveInDB, btnAbout;
+    private JButton btnNewGame, btnBackingOut, btnAbout;
 
 
     /**
@@ -46,7 +41,7 @@ public class PanelOptions extends JPanel implements ActionListener
     public PanelOptions()
     {
         setBorder( new TitledBorder( "Opciones" ) );
-        setLayout( new GridLayout( 1, 4 ) );
+        setLayout( new GridLayout( 1, 3 ) );
 
         btnNewGame = new JButton("Nuevo juego");
         btnNewGame.setActionCommand( NEW_GAME );
@@ -59,12 +54,6 @@ public class PanelOptions extends JPanel implements ActionListener
         btnBackingOut.setEnabled(false);
         add( btnBackingOut );
 
-        btnSaveInDB = new JButton("Guardar resultado en BD");
-        btnSaveInDB.setActionCommand( SAVE_IN_DB);
-        btnSaveInDB.addActionListener( this );
-        btnSaveInDB.setEnabled(false);
-        add( btnSaveInDB );
-
         btnAbout = new JButton("Acerca de");
         btnAbout.setActionCommand( ABOUT );
         btnAbout.addActionListener( this );
@@ -73,6 +62,10 @@ public class PanelOptions extends JPanel implements ActionListener
     }
 
 
+    /**
+     * Habilita o deshabilita el boton de retirarse voluntariamente
+     * @param pEnable Activar o desactivar boton
+     */
     public void enableBackingOut(boolean pEnable)
     {
         btnBackingOut.setEnabled(pEnable);
@@ -87,7 +80,6 @@ public class PanelOptions extends JPanel implements ActionListener
     {
         switch (pEvent.getActionCommand()) {
             case NEW_GAME -> MainController.getInstance().newGame();
-            case SAVE_IN_DB -> MainController.getInstance().saveInDataBase();
             case BACKING_OUT -> MainController.getInstance().backingOut();
             case ABOUT -> MainController.getInstance().about();
         }
